@@ -1,0 +1,17 @@
+{
+  "name": "CustomGoalBar",
+  "version": "0.0.1",
+  "description": "Custom goal bar",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html --open",
+    "build": "parcel build src/index.html --public-url ./"
+  },
+  "dependencies": {
+    "parcel": "^2.5.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.5.0"
+  }
+}
