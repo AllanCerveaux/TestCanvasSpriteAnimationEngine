@@ -1,5 +1,6 @@
+import { AnimsOption, Loader } from './Loader'
+
 import { Canvas } from './Canvas'
-import { Loader } from './Loader'
 import { Sprite } from './Sprite'
 
 export class Engine {
@@ -22,7 +23,13 @@ export class Engine {
 
   get scene() {
     return {
-      add: (title: string, src: string) => this.loader.add(title, src),
+      sprite: {
+        add: (title: string, src: string) => this.loader.add(title, src)
+      },
+      anims: {
+        add: ({ key, name, startAt, row, frames, frameRate, repeat = false }: AnimsOption) =>
+          this.loader.anims({ key, name, startAt, row, frames, frameRate, repeat })
+      },
       addToScene: (sprite: Sprite) => this.addToScene(sprite)
     }
   }

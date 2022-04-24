@@ -10,12 +10,6 @@ interface ISprite {
   y: number
   width: number
   height: number
-  frames: number
-  frameIndex: number
-  row: number
-  ticksPerFrame: number
-  tickCount: number
-  loop?: boolean
 }
 
 export class Sprite implements ISprite {
@@ -37,33 +31,23 @@ export class Sprite implements ISprite {
   loop: boolean
   loader: Loader
 
-  constructor({
-    context,
-    x,
-    y,
-    width,
-    height,
-    frames,
-    frameIndex,
-    row,
-    ticksPerFrame,
-    tickCount,
-    loop = true,
-    options
-  }: ISprite) {
+  constructor({ context, x, y, width, height, options }: ISprite) {
     this.options = options
+
+    const { key } = this.options
+
     this.context = context
-    this.src = this.context.loader.sprites[this.options.name]
+    this.src = this.context.loader.sprites[key]
     this.x = x
     this.y = y
     this.width = width
     this.height = height
-    this.frames = frames
-    this.frameIndex = frameIndex
-    this.row = row
-    this.ticksPerFrame = ticksPerFrame
-    this.tickCount = tickCount
-    this.loop = loop
+    this.frames = this.context.loader.animations[key].frames
+    this.frameIndex = this.context.loader.animations[key].startAt
+    this.row = this.context.loader.animations[key].row
+    this.ticksPerFrame = this.context.loader.animations[key].frameRate
+    this.tickCount = this.context.loader.animations[key].startAt
+    this.loop = this.context.loader.animations[key].repeat
   }
 
   update() {
@@ -73,7 +57,7 @@ export class Sprite implements ISprite {
       if (this.frameIndex < this.frames - 1) {
         this.frameIndex += 1
       } else if (this.loop) {
-        this.frameIndex = 0
+        this.frameIndex = this.context.loader.animations[this.options.key].startAt
       }
     }
   }

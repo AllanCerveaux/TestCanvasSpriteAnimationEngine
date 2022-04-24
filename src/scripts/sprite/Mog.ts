@@ -9,9 +9,7 @@ export class Mog extends Sprite {
     options: {
       name: string
       key: string
-    },
-    row: number,
-    loop?: boolean
+    }
   ) {
     super({
       options,
@@ -19,13 +17,7 @@ export class Mog extends Sprite {
       x,
       y,
       width: 90,
-      height: 76,
-      frameIndex: 0,
-      row,
-      tickCount: 0,
-      ticksPerFrame: 10,
-      frames: 5,
-      loop
+      height: 76
     })
     this.context.scene.addToScene(this)
   }
